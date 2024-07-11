@@ -8,12 +8,14 @@ public class GameData
     // public List<InventoryItem> inventoryItems;
     public int PlayerId;
     public SerializableVector3 playerPosition;
-    // public List<Slot> Container;
+    public List<InventoryItem> inventoryItems;
+
+    public List<InventoryData> items;
     
 
     public GameData(){
         this.playerPosition = new SerializableVector3();
-        // Container = new List<Slot>();
+        items = new List<InventoryData>();
     }
 
 }

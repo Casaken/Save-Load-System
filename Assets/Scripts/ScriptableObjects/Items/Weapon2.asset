@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e2dec3ac8c42d428f367a00e3fc4af, type: 3}
   m_Name: Weapon2
   m_EditorClassIdentifier: 
+  prefab: {fileID: 8268283905302001708, guid: e814745bb0031e648a1319037964ee5f, type: 3}
   id: 0
   image: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   itemType: 2
