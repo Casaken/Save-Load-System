@@ -67,7 +67,7 @@ using UnityEngine.Serialization;
 
         //SLIDING PARAMETERS
         private Vector3 _hitPointNormal;
-
+        [SerializeField] public InventoryManager inventoryManager;
         
 
 
@@ -172,6 +172,12 @@ using UnityEngine.Serialization;
             if (Input.GetKeyDown(KeyCode.C))
             {
                 DataPersistenceManager.instance.LoadGame();
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                Debug.Log("Clearing Inventory");
+                inventoryManager.ClearInventory();
             }
         }
 

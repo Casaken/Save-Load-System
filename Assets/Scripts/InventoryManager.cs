@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Newtonsoft.Json;
@@ -35,6 +36,8 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
         return null;
 
     }
+
+    
     private void Update() {
         if(Input.GetKeyDown(KeyCode.Alpha1)) {
             ChangeSelectedSlot(0);
@@ -65,18 +68,34 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
     }
     return false;
    }
+   
+   public void ClearInventory()
+   {
+       Container.Clear();
+       for (int i = 0; i < inventorySlots.Length; i++)
+       {
+           InventorySlot slot = inventorySlots[i];
+           InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+           if (itemInSlot != null)
+           {
+               Destroy(itemInSlot.gameObject);                
+           }
+       }
+       
+   }
 
    public bool LoadItem(Item item){
+        
      for (int i = 0; i < inventorySlots.Length; i++)
-    {
-        InventorySlot slot = inventorySlots[i];
-        InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
-        if(itemInSlot == null){
-           SpawnLoadedItem(item,slot);
-           return true;
-        }   
-    }
-    return false;
+     {
+         InventorySlot slot = inventorySlots[i];
+         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+         if(itemInSlot == null){
+             SpawnLoadedItem(item,slot);
+             return true;
+         }   
+     }
+     return false;
    }
 
    public void SpawnNewItem(Item item, InventorySlot slot){
@@ -99,8 +118,32 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
 
     public void LoadData(GameData data)
     {
-        Debug.Log("Loaded");
-        
+        StartCoroutine(LoadDataCoroutine(data));
+        // ClearInventory();
+        // Debug.Log("Loaded");
+        //
+        // Container = data.items;
+        // for (int i = 0; i < data.items.Count; i++)
+        // {
+        //     Debug.Log($"Index {i} - setting container with ID {Container[i].Id} to {database.GetItem[Container[i].Id]}");
+        //     //I can get the data set here without a problem.
+        //     Container[i].item = database.GetItem[Container[i].Id];
+        //     
+        // }
+        // for (int x = 0; x < Container.Count; x++)
+        // {
+        //         var item = Container[x].item;
+        //         if (item == null) {
+        //             Debug.Log($"Item at {x} was null");
+        //         }
+        //         LoadItem(Container[x].item);
+        // }
+
+    }
+    public IEnumerator LoadDataCoroutine(GameData data)
+    {
+         ClearInventory();
+         yield return new WaitForSeconds(0.2f);
         Container = data.items;
         for (int i = 0; i < data.items.Count; i++)
         {
@@ -108,17 +151,16 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
             //I can get the data set here without a problem.
             Container[i].item = database.GetItem[Container[i].Id];
             
-            //TODO I just need to find a way to SpawnItems. Items that I get from the Database after loading.
         }
         for (int x = 0; x < Container.Count; x++)
         {
-                var item = Container[x].item;
-                if (item == null) {
+            var item = Container[x].item;
+            if (item == null) {
                 Debug.Log($"Item at {x} was null");
-                }
-                LoadItem(Container[x].item);
+            }
+            LoadItem(Container[x].item);
         }
-
+        Debug.Log("Loaded");
     }
 
     public void SaveData(GameData data)
@@ -148,7 +190,9 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
     }
 
     private void OnApplicationQuit() {
-        Container.Clear();
+        //this does not do its job. Does not actually clear inventory.
+        // Container.Clear();
+        ClearInventory();
     }
 }
 
