@@ -30,6 +30,7 @@ public class DemoScript : MonoBehaviour
         Item receivedItem = inventoryManager.GetSelectedItem(true);
         if(receivedItem !=null ){
             Debug.Log($"Used {receivedItem}");
+            
         }else{
             Debug.Log("No item to use");
         }

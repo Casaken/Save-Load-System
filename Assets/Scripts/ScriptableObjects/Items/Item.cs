@@ -7,6 +7,7 @@ public class Item : ScriptableObject
     // public GameObject prefab;
     public int id;
     public Sprite image;
+    public GameObject itemGameObject;
 
     public ItemType itemType;
 }

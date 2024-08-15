@@ -7,17 +7,20 @@ public class InventorySlot : MonoBehaviour
 {
     public Image image;
     public Color selectedColor , notSelectedColor;
-
-
-    private void Awake() {
+    public InventorySlot slot;
+    private void Awake()
+    {
         Deselect();
     }
-    public void Select(){
+    public void Select()
+    {
         image.color = selectedColor;
     }
 
     public void Deselect(){
+        
         image.color = notSelectedColor;
+        
     }
     // Start is called before the first frame update
     void Start()

@@ -16,6 +16,7 @@ public class DataPersistenceManager : MonoBehaviour
    private void Start() {
     this.dataHandler = new FileDataHandler(Application.persistentDataPath,fileName);
     this.dataPersistenceObjects = FindAllDataPersistenceObjects();
+    Debug.Log("Starting!!");
     NewGame();
     }
 
@@ -43,6 +44,7 @@ public class DataPersistenceManager : MonoBehaviour
     private void Awake() {
     if(instance != null){
         Debug.LogError("Found more than one Data Persistence Manager in the scene");
+        Destroy(gameObject);
     }
     instance = this;
    }
@@ -52,8 +54,8 @@ public class DataPersistenceManager : MonoBehaviour
         this.gameData = new GameData();
    }
 
-   public void LoadGame(){
-
+   public void LoadGame()
+   {
     this.gameData = dataHandler.Load();
     Debug.Log("Loaded Game");
     if(this.gameData == null){

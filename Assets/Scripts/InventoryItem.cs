@@ -10,7 +10,7 @@ public class InventoryItem : MonoBehaviour
 {
     public int Id;
     [HideInInspector]public Item item;
-
+    [HideInInspector]public GameObject inventoryItemGameObject;
     [Header("UI")]
     public Image image;
 
@@ -30,8 +30,20 @@ public class InventoryItem : MonoBehaviour
         Debug.Log($"Image is {image}");
         item = newItem;
         image.sprite = newItem.image;
-        
+
     }
+
+    public void InitializeSceneObject(GameObject sceneGameObject)
+    {
+        inventoryItemGameObject = sceneGameObject;
+    }
+
+    // public void InitializeItem(Item newItem, GameObject gameObjectInScene)
+    // {
+    //     item = newItem;
+    //     image.sprite = newItem.image;
+    //     itemGameObject = gameObjectInScene;
+    // }
 
 
     // //call this when loading inventory instead of initializing I guess...

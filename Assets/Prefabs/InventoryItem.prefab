@@ -91,4 +91,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Id: 0
   item: {fileID: 11400000, guid: fa74f073474f06a41b53badf5560bd28, type: 2}
+  inventoryItemGameObject: {fileID: 5031963092675559282}
   image: {fileID: 2977229330847526992}

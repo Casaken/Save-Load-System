@@ -1,8 +1,7 @@
-using System;
-using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Serialization;
+using System;
 
 // [Serializable]
 // public class PlayerData {
@@ -16,17 +15,20 @@ using UnityEngine.Serialization;
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class MyFirstPersonController : MonoBehaviour, IDataPersistence
     {
+        public bool isMenuEnabled;
+        public bool isLoading;
+        [SerializeField] public GameData playerData;
         // public InventoryObject inventory;
-
-        
         public void LoadData(GameData data)
         {
             transform.position = data.playerPosition.ToVector3();
+            Debug.Log("Loaded player position");
+
         }
 
         public void SaveData(GameData data)
         {
-            data.playerPosition = new SerializableVector3(this.transform.position);
+            data.playerPosition = new SerializableVector3(transform.position);
         }
 
 
@@ -138,48 +140,80 @@ using UnityEngine.Serialization;
         void Update()
         {
 
-            if (CanMove)
-            {
-                HandleMovementInput();
-                if (canMouseLook)
+
+                if (CanMove&& !isLoading &&!isMenuEnabled)
                 {
-                    HandleMouseLook();
+                    HandleMovementInput();
+                    if (canMouseLook)
+                    {
+                        HandleMouseLook();
+                    }
+
+                    if (useFootsteps)
+                    {
+                        // HandleFootsteps();
+                    }
+
+                    if (canInteract)
+                    {
+                        //this is gonna keep firing raycast.
+                        HandleInteractionCheck();
+                        //this gonna check the key for interaction.
+                        HandleInteractionInput();
+                    }
+
+                    ApplyFinalMovements();
                 }
 
-                if (useFootsteps)
+                if (Input.GetKeyDown(KeyCode.Escape))
                 {
-                    // HandleFootsteps();
+                    isMenuEnabled = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    
                 }
 
-                if (canInteract)
+                if (Input.GetKeyDown(KeyCode.Tab) && isMenuEnabled)
                 {
-                    //this is gonna keep firing raycast.
-                    HandleInteractionCheck();
-                    //this gonna check the key for interaction.
-                    HandleInteractionInput();
+                    isMenuEnabled = false;
                 }
-
-                ApplyFinalMovements();
-            }
-
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
                 
-                DataPersistenceManager.instance.SaveGame();
-            }
 
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                DataPersistenceManager.instance.LoadGame();
-            }
 
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                Debug.Log("Clearing Inventory");
-                inventoryManager.ClearInventory();
-            }
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+
+                    DataPersistenceManager.instance.SaveGame();
+                }
+
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+
+                    DataPersistenceManager.instance.LoadGame();
+                }
+
+                if (Input.GetKeyDown(KeyCode.X))
+                {
+                    Debug.Log("Clearing Inventory");
+                    inventoryManager.ClearInventory();
+                }
+
+                if (Input.GetKeyDown(KeyCode.N))
+                {
+                    Debug.Log("IsLoading, stopping playermovement");
+                    isLoading = true;
+                }
+                
+                if (Input.GetKeyDown(KeyCode.M))
+                {
+                    Debug.Log("IsLoading false, enabling movement");
+                    isLoading = false;
+                }
+                
         }
+
+
+
 
         // private void HandleFootsteps()
         // {

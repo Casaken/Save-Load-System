@@ -35,6 +35,7 @@ public class ItemDatabase : ScriptableObject, ISerializationCallbackReceiver
             GetItem.Add(i , items[i]);
            foreach (var item in GetId)
            {
+               //this is just for debugging. Do not worry about it.
                 GetId.TryGetValue(items[i], out int Id);
                 Debug.Log(Id);    
            }
