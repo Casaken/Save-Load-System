@@ -17,5 +17,7 @@ public enum ItemType{
     Misc,
     Key,
     Weapon,
+    Thrash,
+    Food
 
 }

@@ -3,15 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiscInteractable : Interactable
+public class FoodInteractable : Interactable
 {
-    [SerializeField] public  string id = Guid.NewGuid().ToString();
-    [SerializeField] public GameObject miscGameObject;
+    
     [SerializeField] public Item item;
-
+    [SerializeField] public GameObject foodGameObject;
     [SerializeField] public InventoryManager inventoryManager;
-    
-    
+    [SerializeField] public  string id = Guid.NewGuid().ToString();
     // Start is called before the first frame update
     void Start()
     {
@@ -34,11 +32,12 @@ public class MiscInteractable : Interactable
         else
         {
             gameObject.SetActive(false);
-            miscGameObject.SetActive(true);
+            foodGameObject.SetActive(true);
             Debug.Log($"Added {item} to Inventory");
             // inventoryManager.AddItem(item);
             
         }
+
     }
 
     public override void OnFocus()

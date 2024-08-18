@@ -195,6 +195,13 @@ using System;
                 if (Input.GetKeyDown(KeyCode.X))
                 {
                     Debug.Log("Clearing Inventory");
+                    inventoryManager.ResetScene();
+                    
+                    // inventoryManager.ClearInventory();
+                }
+
+                if (Input.GetKeyDown(KeyCode.Z))
+                {
                     inventoryManager.ClearInventory();
                 }
 

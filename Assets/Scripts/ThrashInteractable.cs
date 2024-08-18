@@ -3,15 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MiscInteractable : Interactable
+public class ThrashInteractable : Interactable
 {
-    [SerializeField] public  string id = Guid.NewGuid().ToString();
-    [SerializeField] public GameObject miscGameObject;
     [SerializeField] public Item item;
-
+    [SerializeField] public GameObject thrashGameObject;
     [SerializeField] public InventoryManager inventoryManager;
-    
-    
+    [SerializeField] public  string id = Guid.NewGuid().ToString();
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +31,7 @@ public class MiscInteractable : Interactable
         else
         {
             gameObject.SetActive(false);
-            miscGameObject.SetActive(true);
+            thrashGameObject.SetActive(true);
             Debug.Log($"Added {item} to Inventory");
             // inventoryManager.AddItem(item);
             

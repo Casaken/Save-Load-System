@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf4c452fd39886d409237d561dc34bc0, type: 3}
-  m_Name: Weapon1
+  m_Script: {fileID: 11500000, guid: 69e2dec3ac8c42d428f367a00e3fc4af, type: 3}
+  m_Name: Thrash
   m_EditorClassIdentifier: 
-  itemId: 3
+  id: 0
   image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  type: 1
+  itemGameObject: {fileID: 0}
+  itemType: 3

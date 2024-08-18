@@ -2,14 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class Weapon1Item : MonoBehaviour, IDataPersistence
+public class ThrashItem : MonoBehaviour,IDataPersistence
 {
     [SerializeField] public  string id = Guid.NewGuid().ToString();
-    public Item item;
     public GameObject dropPosition;
-    public GameObject weaponItemInteractable;
-    [SerializeField] public InventoryManager inventoryManager;
+    public GameObject thrashItemInteractable;
+    public InventoryManager inventoryManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,23 +31,21 @@ public class Weapon1Item : MonoBehaviour, IDataPersistence
         if (Input.GetKeyDown(KeyCode.Q))
         {
             
-            weaponItemInteractable.SetActive(true);
-            weaponItemInteractable.transform.position = dropPosition.transform.position;
-            weaponItemInteractable.transform.rotation = dropPosition.transform.rotation;
-            inventoryManager.DropItem();
-                
+            thrashItemInteractable.SetActive(true);
+            thrashItemInteractable.transform.position = dropPosition.transform.position;
+            thrashItemInteractable.transform.rotation = dropPosition.transform.rotation;
+            inventoryManager.DropItem();    
         }
     }
 
-
     public void LoadData(GameData data)
     {
-       
+        
     }
 
     public void SaveData(GameData data)
     {
-        
+    //      
     //     Debug.Log($"SAVING {this} STATUS");
     //     SerializableGameObject serializableObject = new SerializableGameObject
     //     {

@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;  
 using System.Linq;  
 using UnityEngine;  
-using Newtonsoft.Json;  
-  
+using Newtonsoft.Json;
+using UnityEngine.SceneManagement;
+
 public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationCallbackReceiver  
 {  
     public ItemDatabase database;  
@@ -19,6 +20,10 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
     [SerializeField] public GameObject miscItem;
     [SerializeField] public GameObject weapon1Item;
     [SerializeField] public GameObject weapon2Item;
+    [SerializeField] public GameObject thrashItem;
+    [SerializeField] public GameObject foodItem;
+    
+    [SerializeField] public List<GameObject> interactables;
                
 
     // public InventoryData itemData;  
@@ -29,6 +34,7 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
   
     private void Start() {  
         ChangeSelectedSlot(0);  
+        
     }  
   
     public Item GetSelectedItem(bool use){  
@@ -51,6 +57,16 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
                 {
                     weapon1Item.SetActive(false);
                 }
+
+                if (itemInSlot.item.itemType == ItemType.Thrash)
+                {
+                    thrashItem.SetActive(false);
+                }
+
+                if (itemInSlot.item.itemType == ItemType.Food)
+                {
+                    foodItem.SetActive(false);
+                }
                 
                 Container.Remove(GetSelectedItemData(itemInSlot, Container));  
             }  
@@ -70,18 +86,56 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
   
         InventoryData result = container.FirstOrDefault(data => data.item.id == itemId && data.item.itemType == itemType);  
         return result;  
-    }  
+    }
+
+    public void ResetScene()
+    {
+        var currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
+        Container.Clear();
+        ClearInventory();
+        keyItem.gameObject.SetActive(false);
+        miscItem.gameObject.SetActive(false);
+        weapon1Item.gameObject.SetActive(false);
+        thrashItem.gameObject.SetActive(false);
+        foodItem.gameObject.SetActive(false);
+        for (int i = 0; i < interactables.Count; i++)
+        {
+            interactables[i].SetActive(true);
+        }
+    }
   
     public void DropItem()  
     {  
         InventorySlot slot = inventorySlots[selectedSlot];  
         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();  
         if (itemInSlot != null)  
-        {  
-            // Item item = itemInSlot.item;  
-            // item.itemGameObject.gameObject.SetActive(false);            GetSelectedItemData(itemInSlot, Container);  
-            //this is only the hotbar prefab not the actual item that we hold in our hand.  
-            Destroy(itemInSlot.gameObject);  
+        {
+           
+            if (itemInSlot.item.itemType == ItemType.Key)
+            {
+                keyItem.SetActive(false);                
+            }
+            if (itemInSlot.item.itemType == ItemType.Misc)
+            {
+                miscItem.SetActive(false);                
+            }
+            if (itemInSlot.item.itemType == ItemType.Weapon)
+            {
+                weapon1Item.SetActive(false);                
+            }
+
+            if (itemInSlot.item.itemType == ItemType.Thrash)
+            {
+                thrashItem.SetActive(false);
+            }
+
+            if (itemInSlot.item.itemType == ItemType.Food)
+            {
+                foodItem.SetActive(false);
+            }
+            Destroy(itemInSlot.gameObject);
+            Debug.Log($"Dropped {itemInSlot.item}");
             Container.Remove(GetSelectedItemData(itemInSlot, Container));  
         }  
     }    private void Update() {  
@@ -116,6 +170,15 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
                 {
                     weapon1Item.SetActive(false);
                 }
+                if (itemInCurrentSlot.item.itemType == ItemType.Thrash)
+                {
+                    thrashItem.SetActive(false);
+                }
+
+                if (itemInCurrentSlot.item.itemType == ItemType.Food)
+                {
+                    foodItem.SetActive(false);  
+                }
             }
             // GameObject previousItemPrefab = GetSelectedItemGameObject(inventorySlots[selectedSlot]);  
             inventorySlots[selectedSlot].Deselect();  
@@ -136,6 +199,16 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
             if (GetSelectedItem(false).itemType == ItemType.Weapon)
             {
                 weapon1Item.SetActive(true);
+            }
+
+            if (GetSelectedItem(false).itemType == ItemType.Thrash)
+            {
+                thrashItem.SetActive(true);
+            }
+
+            if (GetSelectedItem(false).itemType == ItemType.Food)
+            {
+                foodItem.SetActive(true);
             }
         }
         
@@ -166,9 +239,9 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
         InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
         ChangeSelectedSlot(i);
         if(itemInSlot == null){  
-            SpawnNewItem(item, slot);  
-            return true;  
+            SpawnNewItem(item, slot);
             
+            return true;  
         }     
     }  
     return false;  
@@ -227,6 +300,8 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
             keyItem.SetActive(false);
             miscItem.SetActive(false);
             weapon1Item.SetActive(false);
+            thrashItem.SetActive(false);
+            foodItem.SetActive(false);
         }
   
   
@@ -285,6 +360,8 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
         //this does not do its job. Does not actually clear inventory.  
         // Container.Clear();        ClearInventory();  
     }  
+    
+    
 }  
   
 [System.Serializable]  
@@ -303,4 +380,6 @@ public class InventoryData{
   
     public InventoryData(){  
   
-    }    }
+    }
+    
+}

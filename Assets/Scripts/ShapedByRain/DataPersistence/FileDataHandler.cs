@@ -43,9 +43,10 @@ public class FileDataHandler
         try{
             Directory.CreateDirectory(Path.GetDirectoryName(fullPath));
 
-            string dataToStore = JsonConvert.SerializeObject(data, new JsonSerializerSettings
+            string dataToStore = JsonConvert.SerializeObject(data,Formatting.Indented, new JsonSerializerSettings
             {
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                
             });
 
             using(FileStream stream = new FileStream(fullPath, FileMode.Create)){

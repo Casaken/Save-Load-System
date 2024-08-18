@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class WeaponInteractable : Interactable
     [SerializeField] public Item item;
     [SerializeField] public GameObject weaponGameObject;
     [SerializeField] public InventoryManager inventoryManager;
+    [SerializeField] public  string id = Guid.NewGuid().ToString();
     // Start is called before the first frame update
     void Start()
     {
@@ -21,10 +23,19 @@ public class WeaponInteractable : Interactable
 
     public override void OnInteract()
     {
-        gameObject.SetActive(false);
-        weaponGameObject.SetActive(true);
-        inventoryManager.AddItem(item);
-        Debug.Log($"Added {item} to Inventory");
+        bool result = inventoryManager.AddItem(item);
+        if (!result)
+        {
+            Debug.Log($"Inventory full");
+        }
+        else
+        {
+            gameObject.SetActive(false);
+            weaponGameObject.SetActive(true);
+            Debug.Log($"Added {item} to Inventory");
+            // inventoryManager.AddItem(item);
+            
+        }
         
     }
 

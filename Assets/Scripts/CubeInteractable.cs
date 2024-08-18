@@ -19,7 +19,7 @@
 //     [SerializeField] private LayerMask groundLayerMask;
 //     // Start is called before the first frame update
 //     void Start()
-//     {
+//     {s
 //         player = FindObjectOfType<MyFirstPersonController>().GetComponent<MyFirstPersonController>();
 //         _collider = GetComponent<Collider>();
 //     }

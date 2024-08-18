@@ -27,8 +27,10 @@ public class DataPersistenceManager : MonoBehaviour
     // }
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
+        //this here finds the inactive objects. Thats why I replaced the previous one.
+        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>(true).OfType<IDataPersistence>();
         // Find all MonoBehaviour objects that implement IDataPersistence
-        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
+        // IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
 
         // Find all ScriptableObject instances that implement IDataPersistence
         IEnumerable<IDataPersistence> scriptableObjects = Resources.FindObjectsOfTypeAll<ScriptableObject>().OfType<IDataPersistence>();
@@ -80,6 +82,16 @@ public class DataPersistenceManager : MonoBehaviour
 
     dataHandler.Save(gameData);
    }
+   
+   public void RegisterDataPersistenceObject(IDataPersistence obj)
+   {
+       if (!dataPersistenceObjects.Contains(obj))
+       {
+           dataPersistenceObjects.Add(obj);
+       }
+       
+   }
+   
 
 
    private void OnApplicationQuit() {
