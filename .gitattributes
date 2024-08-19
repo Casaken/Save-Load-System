@@ -1,4 +1,4 @@
-# Define macros (only works in top-level gitattributes files)
+# Define macros (only works in top-level .gitattributes files)
 [attr]lfs               filter=lfs diff=lfs merge=lfs -text
 [attr]unity-json        eol=lf linguist-language=json
 [attr]unity-yaml        merge=unityyamlmerge eol=lf linguist-language=yaml
@@ -7,12 +7,12 @@
 # [attr]unity-yaml        merge=unityyamlmerge text linguist-language=yaml linguist-generated
 
 # Unity source files
-*.cginc                 text
-*.compute               text linguist-language=hlsl
-*.cs                    text diff=csharp
-*.hlsl                  text linguist-language=hlsl
-*.raytrace              text linguist-language=hlsl
-*.shader                text
+*.cginc                 linguist-generated
+*.compute               linguist-generated
+*.cs                    text linguist-language=C#
+*.hlsl                  linguist-generated
+*.raytrace              linguist-generated
+*.shader                linguist-generated
 
 # Unity JSON files
 *.asmdef                unity-json
