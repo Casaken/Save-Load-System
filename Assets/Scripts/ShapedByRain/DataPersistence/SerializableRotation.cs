@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SerializableVector3
+public class SerializableRotation
 {
     public float x;
     public float y;
     public float z;
 
-    public SerializableVector3() {}
+    public SerializableRotation() {}
 
-    public SerializableVector3(float rX, float rY, float rZ)
+    public SerializableRotation(float rX, float rY, float rZ)
     {
         x = rX;
         y = rY;
         z = rZ;
     }
 
-    public SerializableVector3(Vector3 v3)
+    public SerializableRotation(Vector3 v3)
     {
         x = v3.x;
         y = v3.y;
@@ -27,7 +27,9 @@ public class SerializableVector3
 
     public Vector3 ToVector3()
     {
-        return new Vector3(x, y, z); }
+        return new Vector3 (x, y, z); 
+    }
     
 }
+
 

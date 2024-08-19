@@ -5,15 +5,19 @@ using UnityEngine;
 
 public class DemoDoor : Interactable, IDataPersistence
 {
+    [SerializeField] public Animator animator;
     [SerializeField] public InventoryManager inventoryManager;
     [SerializeField] public  string id = Guid.NewGuid().ToString();
     [SerializeField] public Item item;
+    [SerializeField] public GameObject handle;
+    
+    public bool isOpen;
 
     public bool isActive;
     // Start is called before the first frame update
     void Start()
     {
-        
+        isOpen = false;
     }
     // private void OnEnable()
     // {
@@ -33,36 +37,49 @@ public class DemoDoor : Interactable, IDataPersistence
 
     public override void OnInteract()
     {
-         Item itemInSlot = inventoryManager.GetSelectedItem(false);
-         if (itemInSlot == null)
-         {
-             Debug.Log($"You do not hold anything in your hand let alone A KEY!");
-             return;
-         }
-         if (itemInSlot != null)
-         {
-             itemInSlot.itemType = inventoryManager.GetSelectedItem(false).itemType;
-             if (itemInSlot.itemType == ItemType.Key)
-             {
-                 inventoryManager.GetSelectedItem(true);
-                 Debug.Log($"You have the key, opening door.");
-                 gameObject.SetActive(false);
-             }
-             
-         }
+        if (isOpen)
+        {
+            animator.SetTrigger("Close");
+            // animator.Play("doorClose",0,0);
+            isOpen = false;
+        }
+       
+        Item itemInSlot = inventoryManager.GetSelectedItem(false);
+        if (itemInSlot == null)
+        {
+            Debug.Log($"You do not hold anything in your hand let alone A KEY!");
+            return;
+        }
+        if (itemInSlot != null)
+        {
+            itemInSlot.itemType = inventoryManager.GetSelectedItem(false).itemType;
+            if (itemInSlot.itemType == ItemType.Key)
+            {
+                inventoryManager.GetSelectedItem(true);
+                Debug.Log($"You have the key, opening door.");
+                // gameObject.SetActive(false);
 
-         if (itemInSlot == null)
-         {
-             Debug.Log($"You need a key to Open this door.");
-         }
+                if (!isOpen)
+                {
+                    StartCoroutine(DoorTimerCoroutine());
+                }
+            }
 
-         if (itemInSlot.itemType != ItemType.Key)
-         {
-             Debug.Log($"This is not a KEY!");
-         }
+        }
+        
+         
+        if (itemInSlot == null)
+        {
+            Debug.Log($"You need a key to Open this door.");
+        }
+
+        if (itemInSlot.itemType != ItemType.Key)
+        {
+            Debug.Log($"This is not a KEY!");
+        }
 
          
-         // item.itemType = inventoryManager.GetSelectedItem(false).itemType;
+        // item.itemType = inventoryManager.GetSelectedItem(false).itemType;
          
     }
 
@@ -78,34 +95,24 @@ public class DemoDoor : Interactable, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        
+        transform.eulerAngles = data.doorPosition.ToVector3();
+        isOpen = data.isOpen;
+       
     }
 
     public void SaveData(GameData data)
     {
-        // Debug.Log($"SAVING {this} STATUS");
-        // SerializableGameObject serializableObject = new SerializableGameObject
-        // {
-        //     //first _id is the SerializableGameObject's id.
-        //     _id = id,
-        //     _position = new SerializableVector3(transform.position),
-        //     _rotation = new SerializableVector3(transform.eulerAngles),
-        //     isActive = gameObject.activeSelf
-        // };
-        // //making sure list exists...
-        // if (data.gameObjects == null)
-        // {
-        //     data.gameObjects = new List<SerializableGameObject>();
-        // }
-        //
-        // //This here checks if the item is already in the save list.
-        // var existingObject = data.gameObjects.Find(existingObject => existingObject._id == id);
-        // if (existingObject != null)
-        // {
-        //     //if yes just delete it.
-        //     data.gameObjects.Remove(existingObject);  
-        // }
-        // //if not add the object.
-        // data.gameObjects.Add(serializableObject);  
+        data.doorPosition = new SerializableVector3(transform.eulerAngles);
+        data.isOpen = isOpen;
+        
+    }
+
+    IEnumerator DoorTimerCoroutine()
+    {
+        // animator.ResetTrigger("doorClose");
+        // animator.Play("doorOpen",0,0);
+        animator.SetTrigger("Open");
+        yield return new WaitForSeconds(1f);
+        isOpen = true;
     }
 }
