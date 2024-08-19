@@ -9,6 +9,10 @@ public class GameData
     public List<InventoryData> items;
     public List<SerializableGameObject> gameObjects;
     public SerializableQuaternion handleRotation;
+    public bool isOpenState;
+    public bool isIdleState;
+    public bool isClosedState;
+    public bool isUnlocked;
     
     public bool isOpen;
     public GameData(){
