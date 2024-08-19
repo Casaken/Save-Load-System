@@ -9,7 +9,7 @@ public class DemoDoor : Interactable, IDataPersistence
     [SerializeField] public InventoryManager inventoryManager;
     [SerializeField] public  string id = Guid.NewGuid().ToString();
     [SerializeField] public Item item;
-    [SerializeField] public GameObject handle;
+    [SerializeField] public Transform handle;
     
     public bool isOpen;
 
@@ -93,19 +93,24 @@ public class DemoDoor : Interactable, IDataPersistence
         
     }
 
-    public void LoadData(GameData data)
-    {
-        transform.eulerAngles = data.doorPosition.ToVector3();
-        isOpen = data.isOpen;
-       
-    }
-
     public void SaveData(GameData data)
     {
-        data.doorPosition = new SerializableVector3(transform.eulerAngles);
+        animator.enabled = false;
+        data.handleRotation = new SerializableQuaternion(handle.transform.rotation);
         data.isOpen = isOpen;
-        
+        Debug.Log($"Saved Rotation: {handle.transform.rotation}");
     }
+
+    public void LoadData(GameData data)
+    {
+        animator.enabled = false;
+        handle.transform.rotation = data.handleRotation.ToQuaternion();
+        isOpen = data.isOpen;
+        Debug.Log($"Loaded Rotation: {handle.transform.rotation}");
+        // animator.enabled = true;
+    }
+
+
 
     IEnumerator DoorTimerCoroutine()
     {

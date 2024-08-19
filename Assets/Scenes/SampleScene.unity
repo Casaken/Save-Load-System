@@ -3227,7 +3227,7 @@ MonoBehaviour:
   inventoryManager: {fileID: 696250953}
   id: fc662e61-26eb-46e4-b90c-256c56564378
   item: {fileID: 11400000, guid: fa74f073474f06a41b53badf5560bd28, type: 2}
-  handle: {fileID: 1314981623}
+  handle: {fileID: 1314981625}
   isOpen: 0
   isActive: 0
 --- !u!114 &1265260795 stripped
