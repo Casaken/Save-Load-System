@@ -180,7 +180,7 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
                     foodItem.SetActive(false);  
                 }
             }
-            // GameObject previousItemPrefab = GetSelectedItemGameObject(inventorySlots[selectedSlot]);  
+              
             inventorySlots[selectedSlot].Deselect();  
         }  
         inventorySlots[newValue].Select();
@@ -308,9 +308,7 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
     public void LoadData(GameData data)  
     {  
         StartCoroutine(LoadDataCoroutine(data));  
-        // ClearInventory();  
-        // Debug.Log("Loaded");        //        // Container = data.items;        // for (int i = 0; i < data.items.Count; i++)        // {        //     Debug.Log($"Index {i} - setting container with ID {Container[i].Id} to {database.GetItem[Container[i].Id]}");        //     //I can get the data set here without a problem.        //     Container[i].item = database.GetItem[Container[i].Id];        //        // }  
-        // for (int x = 0; x < Container.Count; x++)        // {        //         var item = Container[x].item;        //         if (item == null) {        //             Debug.Log($"Item at {x} was null");        //         }        //         LoadItem(Container[x].item);        // }  
+          
     }  
     public IEnumerator LoadDataCoroutine(GameData data)  
     {  
@@ -355,10 +353,6 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
             Container[i].item = database.GetItem[Container[i].Id];  
             Container[i].itemType = database.GetItem[Container[i].Id].itemType;  
         }  
-    }  
-    private void OnApplicationQuit() {  
-        //this does not do its job. Does not actually clear inventory.  
-        // Container.Clear();        ClearInventory();  
     }  
     
     

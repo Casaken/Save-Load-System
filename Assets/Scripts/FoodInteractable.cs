@@ -57,20 +57,14 @@ public class FoodInteractable : Interactable, IDataPersistence
         //
         if (item != null)
         {
-            // Apply the saved position and rotation
+
             transform.localPosition = gameObj._position.ToVector3();
             transform.eulerAngles = gameObj._rotation.ToVector3();
         
-            // Set the active state
+            
             gameObject.SetActive(gameObj.isActive);
         
-            // // If the item was initially inactive, you might need to manage its interactions
-            // if (!item.isActive)
-            // {
-            //     // Handle initialization or state when inactive
-            //     // For example, you might need to set up keyItemInteractable or other references
-            //     keyItemInteractable.SetActive(false); // Ensure it matches saved state
-            // }
+            
         }
     }
 
@@ -85,7 +79,7 @@ public class FoodInteractable : Interactable, IDataPersistence
             isActive = gameObject.activeSelf
         };
         
-        //I can maybe add the objects to the list on OnEnable instead of doing this?
+        
         if (data.gameObjects == null)
         {
             data.gameObjects = new List<SerializableGameObject>();

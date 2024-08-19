@@ -1,7 +1,5 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class DemoDoor : Interactable, IDataPersistence
@@ -33,27 +31,9 @@ public class DemoDoor : Interactable, IDataPersistence
         Debug.Log($"{isIdleState} IS IDLE?");
         isOpen = false;
         isUnlocked = false;
-        // AnimatorStateInfo currentStateInfo = animator.GetCurrentAnimatorStateInfo(0);
-        // //if its in openState it takes the currentState's hash compares it to doorOpen string's hash. Returns true or false accordingly.
-        // isOpenState = currentStateInfo.shortNameHash == Animator.StringToHash("doorOpen");
-        // isClosedState = currentStateInfo.shortNameHash == Animator.StringToHash("doorClose");
-        // isIdleState = currentStateInfo.shortNameHash == Animator.StringToHash("Idle");
-        // Debug.Log($"{isOpenState} = Door is in OPEN STATE");
-        // //this returns true as it starts in Idle state.
-        // Debug.Log($"{isIdleState} = Door is in IDLE STATE");
-        // Debug.Log($"{isClosedState} = Door is in CLOSED STATE");
 
     }
-    // private void OnEnable()
-    // {
-    //     DataPersistenceManager.instance.RegisterDataPersistenceObject(this);
-    // }
-    //
-    // private void OnDisable()
-    // {
-    //     DataPersistenceManager.instance.UnregisterDataPersistenceObject(this);
-    // }
-
+    
     // Update is called once per frame
     void Update()
     {
@@ -63,16 +43,15 @@ public class DemoDoor : Interactable, IDataPersistence
     public override void OnInteract()
     {
         
-        // animator.enabled = true;
         if (isOpen && isUnlocked)
         {
-            //turns isOpen to false.
+            
             StartCoroutine(CloseDoorAnimation());
         }
 
         if (!isOpen && isUnlocked)
         {
-            //turns isOpen true.
+            
             StartCoroutine(OpenDoorAnimation());
         }
        
@@ -93,9 +72,9 @@ public class DemoDoor : Interactable, IDataPersistence
             {
                 inventoryManager.GetSelectedItem(true);
                 Debug.Log($"You have the key, opening door.");
-                //turns isOpen to true.
+                
                 StartCoroutine(OpenDoorAnimation());
-                // animator.SetTrigger("Open");
+                
                 isUnlocked = true;
                 
             }
@@ -110,7 +89,7 @@ public class DemoDoor : Interactable, IDataPersistence
         
 
          
-        // item.itemType = inventoryManager.GetSelectedItem(false).itemType;
+        
          
     }
 
@@ -160,21 +139,7 @@ public class DemoDoor : Interactable, IDataPersistence
         isOpenState = data.isOpenState;
         isOpen = data.isOpen;
         isUnlocked = data.isUnlocked;
-         
-        // if (isOpen)
-        // {
-        //     animator.CrossFade("doorOpen", 0.1f); // Short transition time
-        // }
-        // else if (isClosedState)
-        // {
-        //     animator.CrossFade("doorClose", 0.1f); // Short transition time
-        // }
-        // else
-        // {
-        //     animator.CrossFade("Idle", 0.1f); // Short transition time
-        // }
         
-        // ----> UNCOMMENT HERE LATER IF IT DOES NOT WORK
         if (isOpenState)
         {
             
@@ -190,13 +155,13 @@ public class DemoDoor : Interactable, IDataPersistence
         
         animator.enabled = true;
         
-        // StartCoroutine(AnimatorActivationRoutine());
+        
     }
 
 
     IEnumerator AnimatorActivationRoutine()
     {
-        // yield return new WaitForSeconds(1f);
+        
         animator.enabled = true;
         yield return null;
     }

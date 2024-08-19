@@ -14,11 +14,10 @@ public class InventoryItem : MonoBehaviour
     [Header("UI")]
     public Image image;
 
-    //use this as a reference when saving and loading.
-    // public InventoryData itemData;
+   
 
 
-    //this may be the constructor if we're to make it a c# class?
+   
     public void InitializeItem( int _id,Item newItem){
         Id = _id;
         item = newItem;
@@ -38,20 +37,6 @@ public class InventoryItem : MonoBehaviour
         inventoryItemGameObject = sceneGameObject;
     }
 
-    // public void InitializeItem(Item newItem, GameObject gameObjectInScene)
-    // {
-    //     item = newItem;
-    //     image.sprite = newItem.image;
-    //     itemGameObject = gameObjectInScene;
-    // }
-
-
-    // //call this when loading inventory instead of initializing I guess...
-    // public void LoadItems( int _id,Item loadedItem){
-    //     Id = _id;
-    //     item = loadedItem;
-    //     image.sprite = loadedItem.image;
-    // }
 
 }
 

@@ -3,13 +3,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using System;
 
-// [Serializable]
-// public class PlayerData {
-//     // [field: SerializeField] public SerializableGuid Id { get; set; }
-//     [SerializeField] public int Id;
-//     // public Vector3 position;
-//     // public Quaternion rotation;
-// }
+
 
 
     [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
@@ -124,10 +118,9 @@ using System;
         {
 
             _playerCamera = FindObjectOfType<Camera>().GetComponent<Camera>();
-            // _playerUI = GetComponent<PlayerUI>();
+            
             _characterController = GetComponent<CharacterController>();
-            // Cursor.lockState = CursorLockMode.Locked;
-            // Cursor.visible = false;
+            
         }
 
         private void Start()
@@ -197,7 +190,7 @@ using System;
                     Debug.Log("Clearing Inventory");
                     inventoryManager.ResetScene();
                     
-                    // inventoryManager.ClearInventory();
+                    
                 }
 
                 if (Input.GetKeyDown(KeyCode.Z))
@@ -219,48 +212,6 @@ using System;
                 
         }
 
-
-
-
-        // private void HandleFootsteps()
-        // {
-        //     if (!_characterController.isGrounded)
-        //     {
-        //         return;
-        //         
-        //     }
-        //
-        //     if (_currentInput == Vector2.zero)
-        //     {
-        //         return;
-        //         
-        //     }
-        //
-        //     footstepTimer -= Time.deltaTime;
-        //     if (footstepTimer <= 0)
-        //     {
-        //         if (Physics.Raycast(_characterController.transform.position, Vector3.down, out RaycastHit hit,3))
-        //         {
-        //             switch (hit.collider.tag)
-        //             {
-        //                 case "Footsteps/FOREST":
-        //                     footstepAudioSource.PlayOneShot(forestClips[Random.Range(0, forestClips.Length - 1)]);
-        //                     break;
-        //                 case "Footsteps/WOOD":
-        //                     footstepAudioSource.PlayOneShot(indoorClips[Random.Range(0, indoorClips.Length - 1)]);
-        //                     break;
-        //                 case "Footsteps/STREET":
-        //                     footstepAudioSource.PlayOneShot(streetClips[Random.Range(0, streetClips.Length - 1)]);
-        //                     break;
-        //                 default:
-        //                     footstepAudioSource.PlayOneShot(defaultClips[Random.Range(0, defaultClips.Length - 1)]);
-        //                 break;
-        //             }
-        //         }
-        //         footstepTimer = baseStepSpeed;
-        //     }
-        //
-        // }
 
         private void HandleMovementInput()
         {

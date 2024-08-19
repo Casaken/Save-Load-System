@@ -20,11 +20,7 @@ public class DataPersistenceManager : MonoBehaviour
     NewGame();
     }
 
-    // private List<IDataPersistence> FindAllDataPersistenceObjects()
-    // {
-    //     IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
-    //     return new List<IDataPersistence>(dataPersistenceObjects);
-    // }
+    
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
         //this here finds the inactive objects. Thats why I replaced the previous one.
@@ -90,12 +86,6 @@ public class DataPersistenceManager : MonoBehaviour
            dataPersistenceObjects.Add(obj);
        }
        
-   }
-   
-
-
-   private void OnApplicationQuit() {
-    // SaveGame();
    }
    
 }
