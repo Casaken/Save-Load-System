@@ -2,11 +2,11 @@ using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Serialization;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 
-
-
-    [JsonObject(MemberSerialization = MemberSerialization.OptIn)]
+[JsonObject(MemberSerialization = MemberSerialization.OptIn)]
     public class MyFirstPersonController : MonoBehaviour, IDataPersistence
     {
         public bool isMenuEnabled;
@@ -15,6 +15,7 @@ using System;
         // public InventoryObject inventory;
         public void LoadData(GameData data)
         {
+            StartCoroutine(DisableMovements());
             transform.position = data.playerPosition.ToVector3();
             Debug.Log("Loaded player position");
 
@@ -22,9 +23,16 @@ using System;
 
         public void SaveData(GameData data)
         {
+            StartCoroutine(DisableMovements());
             data.playerPosition = new SerializableVector3(transform.position);
         }
-
+        
+        IEnumerator DisableMovements()
+        {
+            isLoading = true;
+            yield return new WaitForSeconds(1);
+            isLoading = false; 
+        }
 
 
         public bool CanMove { get; private set; } = true;
