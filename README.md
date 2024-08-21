@@ -4,7 +4,8 @@
 - Successfully keeping track of Character's location to be saved and loaded.
 - As for Serializer, Newtonsoft's JSON converter is used to not encounter any data loss.
 
-•CONTROLS
-•X to reload scene
-•Space to save
-•C to load game
+**CONTROLS**
+
+- **X** To Reload Scene
+- **Space** To Save
+- **C** To Load
