@@ -249,6 +249,17 @@ MonoBehaviour:
       y: 0
       z: 0
     items: []
+    gameObjects: []
+    handleRotation:
+      x: 0
+      y: 0
+      z: 0
+      w: 0
+    isOpenState: 0
+    isIdleState: 0
+    isClosedState: 0
+    isUnlocked: 0
+    isOpen: 0
   canSprint: 1
   _willSlideOnSlopes: 1
   canInteract: 1
@@ -265,7 +276,7 @@ MonoBehaviour:
   upperLookLimit: 80
   lowerLookLimit: 80
   _cameraRoot: {fileID: 755637781500674473}
-  inventoryManager: {fileID: 0}
+  inventoryManager: {fileID: 9120711085527142464, guid: 1f8ff4df3db114e44a79af0787296184, type: 3}
   interactionRayPoint: {x: 0.5, y: 0.5, z: 0}
   interactionDistance: 2
   interactionLayer:
