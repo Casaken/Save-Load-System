@@ -11,6 +11,7 @@ public class SerializableVector3
 
     public SerializableVector3() {}
 
+    //Since I had problems serializing the default Vector3s I had to do a workaround like this. Basically it takes vector3 axis and just copies them in itself
     public SerializableVector3(float rX, float rY, float rZ)
     {
         x = rX;
@@ -25,6 +26,7 @@ public class SerializableVector3
         z = v3.z;
     }
 
+    //To be able to write to Vector3s its values. I made a simple method to copy its values.       
     public Vector3 ToVector3()
     {
         return new Vector3(x, y, z); }

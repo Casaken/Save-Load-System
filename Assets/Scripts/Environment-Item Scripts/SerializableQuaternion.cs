@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class SerializableQuaternion
 {
+    //I never use the quaternion version. I just went with simple Vector3 to SerializableVector3 transitions.
     public float x, y, z, w;
 
     public SerializableQuaternion(Quaternion quaternion)

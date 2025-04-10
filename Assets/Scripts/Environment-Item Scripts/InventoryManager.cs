@@ -157,7 +157,7 @@ public class InventoryManager : MonoBehaviour, IDataPersistence, ISerializationC
 
             if (itemInCurrentSlot != null)
             {
-                //TODO hide the selected item.
+                
                 if (itemInCurrentSlot.item.itemType == ItemType.Key)
                 {
                     keyItem.SetActive(false);

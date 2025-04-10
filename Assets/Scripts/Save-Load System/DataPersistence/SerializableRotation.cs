@@ -9,6 +9,7 @@ public class SerializableRotation
     public float y;
     public float z;
 
+    //This script is again for converting default rotations from vector3s and converting them back to vector3s
     public SerializableRotation() {}
 
     public SerializableRotation(float rX, float rY, float rZ)

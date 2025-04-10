@@ -28,7 +28,7 @@ public class DataPersistenceManager : MonoBehaviour
         // Find all MonoBehaviour objects that implement IDataPersistence
         // IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsOfType<MonoBehaviour>().OfType<IDataPersistence>();
 
-        // Find all ScriptableObject instances that implement IDataPersistence
+        // This here finds all scriptable objects that implement IDataPersistence.
         IEnumerable<IDataPersistence> scriptableObjects = Resources.FindObjectsOfTypeAll<ScriptableObject>().OfType<IDataPersistence>();
 
         // Combine both collections
@@ -63,6 +63,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
     {
+        //Basically gather all and call LoadData.
         dataPersistenceObj.LoadData(gameData);
     }
 
@@ -73,6 +74,7 @@ public class DataPersistenceManager : MonoBehaviour
        Debug.Log("Saved Game");
     foreach (IDataPersistence dataPersistenceObj in dataPersistenceObjects)
     {
+        //Same as load data but calling Save Data this time.
         dataPersistenceObj.SaveData(gameData);
     }
 
@@ -83,9 +85,9 @@ public class DataPersistenceManager : MonoBehaviour
    {
        if (!dataPersistenceObjects.Contains(obj))
        {
+            //if the dataPersistenceObjects does not contain the object we ask for. Then it just registers it into the list.
            dataPersistenceObjects.Add(obj);
-       }
-       
+       } 
    }
    
 }
